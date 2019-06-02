@@ -1,3 +1,7 @@
+#testes funcionais são aqueles que testam o sistema do lado do usuário
+#testes funcionais devem conter uma história legível por um ser humano
+
+
 from selenium import webdriver
 import unittest
 
@@ -24,7 +28,7 @@ class NewVisitorTest(unittest.TestCase):
 		#Ela digita "buy peacock feathers" (comprar penas de pavão) em uma caixa
 		#de texto (o hobby de Edith é fazer iscas para pesca com fly)
 
-		#Qual ela tecla enter, a página é atualizada e agora a página lista
+		#Quando ela tecla enter, a página é atualizada e agora a página lista
 		#"1: Buy peacock feathers" como um item em uma lista de tarefas
 
 		#Ainda continua existindo uma caixa de texto convidando-a a acrescentar outro item.
@@ -38,7 +42,6 @@ class NewVisitorTest(unittest.TestCase):
 		#Ela acessa esse URL - sua lista de tarefas continua lá.
 
 		#Satisfeita ela volta a dormir.
-
 
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')
