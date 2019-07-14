@@ -3,6 +3,7 @@
 
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 import time
@@ -37,7 +38,7 @@ class NewVisitorTest(LiveServerTestCase):
 		self.browser.get(self.live_server_url)
 
 		#Ela percebe que o título da página e o cabeçalho mencionam listas de tarefas (to-do)
-		self.assertIn('To-Do lists', self.browser.title)
+		self.assertIn('To-Do', self.browser.title)
 		header_text = self.browser.find_element_by_tag_name('h1').text
 		self.assertIn('To-Do', header_text)
 
@@ -63,13 +64,13 @@ class NewVisitorTest(LiveServerTestCase):
 		inputbox.send_keys(Keys.ENTER)
 
 		#A página é atualizada novamente e agora mostra dois itens em sua lista
-		self.wait_for_row_in_list_table('1: Buy a peacock feathers')
 		self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
+		self.wait_for_row_in_list_table('1: Buy a peacock feathers')
 
 
 		#Edith se pergunta se o site lembrará de sua lista. Então ela nota que o site gerou
 		#um URL único para ela -- há um pequeno texto explicativo para isso.
-		self.fail('Fim do teste!')
+		#self.fail('Fim do teste!')
 
 		#Ela acessa esse URL - sua lista de tarefas continua lá.
 
@@ -79,7 +80,7 @@ class NewVisitorTest(LiveServerTestCase):
 		#Edith inicia uma nova lista de tarefas
 		self.browser.get(self.live_server_url)
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		inputbox.send_keys('Buy a peacock feather')
+		inputbox.send_keys('Buy a peacock feathers')
 		inputbox.send_keys(Keys.ENTER)
 		self.wait_for_row_in_list_table('1: Buy a peacock feathers')
 
@@ -113,7 +114,7 @@ class NewVisitorTest(LiveServerTestCase):
 		self.assertNotEqual(francis_list_url, edith_list_url)
 
 		#Novamente, não há nenhum sinal da lista de Edith
-		page_text = self.browser.find_elements_by_tag_name('body').text
+		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Buy a peacock feathers', page_text)
 		self.assertIn('Buy milk', page_text)
 
